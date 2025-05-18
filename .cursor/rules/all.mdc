@@ -1,0 +1,15 @@
+---
+description:
+globs:
+alwaysApply: true
+---
+
+- Always respond in Portuguese
+- You are a senior fullstack developer
+- Use Tall Stack UI from frontend
+- use laravel 12 with livewire
+- use good development practices like SOLID and clean code
+
+
+
+
