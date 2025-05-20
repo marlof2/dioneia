@@ -16,14 +16,18 @@ return new class extends Migration
             $table->string('name');
             $table->date('birth_date');
             $table->integer('age');
-            $table->enum('gender', ['masculino', 'feminino']);
-            $table->enum('marital_status', ['casado', 'solteiro', 'divorciado', 'viuvo']); //estado civil
+            $table->enum('gender', ['Masculino', 'Feminino', 'Homem Cisgênero', 'Mulher Cisgênero', 'Homem Transgênero', 'Mulher Transgênero', 'Pessoa Não Binária', 'Prefere não informar', 'Outro']);
+            $table->enum('marital_status', ['Casado', 'Solteiro', 'Divorciado', 'Viúvo']); //estado civil
             $table->integer('children')->default(0);
             $table->string('address');
             $table->string('city');
             $table->string('phone');
+            $table->string('emergency_phone_1')->nullable();
+            $table->string('emergency_contact_1')->nullable();
+            $table->string('emergency_phone_2')->nullable();
+            $table->string('emergency_contact_2')->nullable();
             $table->string('religion')->nullable();
-            $table->string('education_level'); //nivel de escolaridade
+            $table->enum('education_level', ['Ensino Fundamental', 'Ensino Médio', 'Ensino Superior', 'Pós-Graduação', 'Mestrado', 'Doutorado']);
             $table->string('occupation');
             $table->json('vices')->nullable(); //vicios
             $table->boolean('family_suicide_history')->default(false); //histórico de suicídio na família

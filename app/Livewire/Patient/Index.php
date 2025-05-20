@@ -3,13 +3,17 @@
 namespace App\Livewire\Patient;
 
 use App\Models\Patient;
+use Carbon\Carbon;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\On;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class Index extends Component
 {
+    use WithPagination;
+
     public ?int $quantity = 10;
     public ?string $search = null;
     public bool $show = false;
@@ -22,11 +26,11 @@ class Index extends Component
     ];
 
     public array $headers = [
-        ['index' => 'actions', 'label' => 'Ações'],
-        ['index' => 'name', 'label' => 'Nome'],
-        ['index' => 'birth_date', 'label' => 'Data de nascimento'],
-        ['index' => 'age', 'label' => 'Idade'],
-        ['index' => 'gender', 'label' => 'Gênero'],
+        ['index' => 'actions', 'label' => 'Ações',  'sortable' => false],
+        ['index' => 'name', 'label' => 'Nome',  'sortable' => false],
+        ['index' => 'birth_date', 'label' => 'Data de nascimento',  'sortable' => false],
+        ['index' => 'age', 'label' => 'Idade',  'sortable' => false],
+        ['index' => 'gender', 'label' => 'Gênero', 'sortable' => false],
     ];
 
     public function render()
@@ -34,20 +38,30 @@ class Index extends Component
         return view('livewire.patient.index');
     }
 
+
     #[Computed()]
     public function patients(): LengthAwarePaginator
     {
-        return Patient::with('contacts', 'documents', 'clinicalSituations')
-        ->when($this->search !== null, fn ($query) => $query->whereAny(['name', 'email'], 'like', '%'.trim($this->search).'%'))
-        ->orderBy(...array_values($this->sort))
-        ->paginate($this->quantity)
-        ->withQueryString();
+        return Patient::with('documents', 'clinicalSituations')
+            ->when($this->search, fn($query) => $query->where('name', 'like', '%' . $this->search . '%'))
+            ->orderBy('name', 'asc')
+            ->paginate($this->quantity)
+            ->withQueryString();
     }
 
-    public function loadPatient($id)
+    public function dateFormatted($date)
     {
-        $this->patient = Patient::find($id);
-        dd($this->patient);
+        return Carbon::parse($date)->format('d/m/Y');
+    }
+
+    public function isBirthday($date)
+    {
+        return Carbon::parse($date)->isBirthday();
+    }
+
+    public function navigateToEdit($id)
+    {
+        return $this->redirect('/patients/edit/' . $id, navigate: true);
     }
 
     public function navigateToCreate()

@@ -26,6 +26,10 @@ class Patient extends Model
         'family_suicide_history',
         'suicidal_thoughts',
         'disorders',
+        'emergency_phone_1',
+        'emergency_contact_1',
+        'emergency_phone_2',
+        'emergency_contact_2',
     ];
 
     protected $casts = [
@@ -33,10 +37,6 @@ class Patient extends Model
         'disorders' => 'array',
     ];
 
-    public function contacts()
-    {
-        return $this->hasMany(Contact::class);
-    }
 
     public function documents()
     {

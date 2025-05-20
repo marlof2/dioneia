@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Livewire\Patient\Create;
 use App\Livewire\Patient\Index as PatientIndex;
+use App\Livewire\Patient\Update;
 use App\Livewire\User\Profile;
 use Illuminate\Support\Facades\Route;
 use App\Livewire\Users\Index;
@@ -19,6 +20,7 @@ Route::middleware(['auth'])->group(function () {
     Route::group(['prefix' => 'patients'], function () {
         Route::get('/', PatientIndex::class)->name('patients.index');
         Route::get('/create', Create::class)->name('patients.create');
+        Route::get('/edit/{id}', Update::class)->name('patients.edit');
     });
 });
 

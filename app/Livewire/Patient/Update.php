@@ -4,17 +4,18 @@ namespace App\Livewire\Patient;
 
 use App\Livewire\Forms\PatientForm;
 use App\Livewire\Traits\Alert;
-use Livewire\Component;
 use App\Models\Patient;
+use Livewire\Component;
 use TallStackUi\Traits\Interactions;
 
-class Create extends Component
+class Update extends Component
 {
     use Interactions, Alert;
 
+    public Patient $patient;
     public PatientForm $form;
-
     public $currentStep = "1";
+
     public $optionsGender = [
         ['label' => 'Masculino', 'value' => 'Masculino'],
         ['label' => 'Homem Cisgênero', 'value' => 'Homem Cisgênero'],
@@ -42,6 +43,19 @@ class Create extends Component
         ['label' => 'Doutorado', 'value' => 'Doutorado'],
     ];
 
+    public function render()
+    {
+        return view('livewire.patient.form');
+    }
+
+    public function mount($id)
+    {
+        $this->patient = Patient::find($id);
+        $this->form->fill($this->patient->toArray());
+        $this->form->family_suicide_history = $this->form->family_suicide_history == 1 ? true : false;
+        $this->form->suicidal_thoughts = $this->form->suicidal_thoughts == 1 ? true : false;
+    }
+
     public function calculateAge()
     {
         if ($this->form->birth_date) {
@@ -54,21 +68,15 @@ class Create extends Component
     {
         try {
             $this->validate();
+            $this->patient->update($this->form->all());
 
-            Patient::create($this->form->all());
-
-            $this->toast()->success('Sucesso', 'Paciente cadastrado com sucesso!')->send();
+            $this->toast()->success('Sucesso', 'Paciente atualizado com sucesso!')->send();
             return $this->redirect('/patients', navigate: true);
         } catch (\Illuminate\Validation\ValidationException $e) {
             $errors = collect($e->errors())->flatten()->implode('<br>');
             $this->warning('Atenção!', $errors);
         } catch (\Exception $e) {
-            $this->warning('Atenção!', 'Ocorreu um erro ao cadastrar o paciente: ' . $e->getMessage());
+            $this->warning('Atenção!', 'Ocorreu um erro ao atualizar o paciente: ' . $e->getMessage());
         }
-    }
-
-    public function render()
-    {
-        return view('livewire.patient.form');
     }
 }
