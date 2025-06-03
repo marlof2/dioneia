@@ -10,14 +10,15 @@ use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
 use Livewire\WithPagination;
+use TallStackUi\Traits\Interactions;
 
 class Index extends Component
 {
-    use WithPagination;
+    use WithPagination, Interactions;
 
     public ?int $quantity = 10;
-
     public ?string $search = null;
+    public string $title = 'Usuários';
 
     public array $sort = [
         'column'    => 'created_at',

@@ -1,16 +1,14 @@
 <div>
-    <x-card>
-        <x-slot:header>
-            <h1 class="text-2xl font-bold">Novo Paciente</h1>
-        </x-slot:header>
-
+    <x-header title="{{ $title }}" :breadcrumbs="[['label' => 'Pacientes', 'url' => route('patients.index')], ['label' => $title]]" />
+    <x-card bordered>
         <form wire:submit="save">
-            <x-step wire:model="currentStep" helpers navigate-previous >
+            <x-step wire:model="currentStep" helpers navigate-previous class="mb-10">
                 <hr style="color: gray">
                 <!-- Step 1: Dados Pessoais -->
                 <x-step.items step="1" title="Dados Pessoais" description="Informações básicas do paciente">
                     <div class="space-y-4 mt-6">
                         <x-input label="Nome Completo *" wire:model="form.name" />
+                        <x-input label="CPF *" wire:model="form.cpf" x-mask="999.999.999-99" />
                         <x-input type="date" label="Data de Nascimento *" wire:model="form.birth_date"
                             wire:blur="calculateAge" />
                         <x-input type="number" label="Idade *" wire:model="form.age" disabled />
@@ -28,10 +26,12 @@
                     <div class="space-y-4 mt-6">
                         <x-input label="Endereço *" wire:model="form.address" />
                         <x-input label="Cidade *" wire:model="form.city" />
-                        <x-input label="Telefone Principal *" wire:model="form.phone" />
-                        <x-input label="Telefone de Emergência 1" wire:model="form.emergency_phone_1" />
+                        <x-input label="Telefone Principal *" wire:model="form.phone" x-mask="(99) 99999-9999" />
+                        <x-input label="Telefone de Emergência 1" wire:model="form.emergency_phone_1"
+                            x-mask="(99) 99999-9999" />
                         <x-input label="Nome do Contato de Emergência 1" wire:model="form.emergency_contact_1" />
-                        <x-input label="Telefone de Emergência 2" wire:model="form.emergency_phone_2" />
+                        <x-input label="Telefone de Emergência 2" wire:model="form.emergency_phone_2"
+                            x-mask="(99) 99999-9999" />
                         <x-input label="Nome do Contato de Emergência 2" wire:model="form.emergency_contact_2" />
                     </div>
                 </x-step.items>
@@ -48,7 +48,8 @@
                             <x-textarea label="Vícios" wire:model="form.vices" />
                             <x-textarea label="Transtornos" wire:model="form.disorders"
                                 placeholder="Descreva os transtornos do paciente" rows="4" />
-                            <x-checkbox label="Histórico de Suicídio na Família" wire:model="form.family_suicide_history" />
+                            <x-checkbox label="Histórico de Suicídio na Família"
+                                wire:model="form.family_suicide_history" />
                             <x-checkbox label="Pensamentos Suicidas" wire:model="form.suicidal_thoughts" />
                         </div>
                     </div>

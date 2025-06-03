@@ -11,12 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('session_reports', function (Blueprint $table) {
+        Schema::create('promptuary', function (Blueprint $table) {
             $table->id();
-            $table->enum('type', ['individual', 'casal']);
+            $table->string('type');
             $table->foreignId('patient1_id')->constrained('patients')->onDelete('cascade');
             $table->foreignId('patient2_id')->nullable()->constrained('patients')->onDelete('cascade');
-            $table->text('text');
             $table->timestamps();
         });
     }
@@ -26,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('session_reports');
+        Schema::dropIfExists('promptuary');
     }
 };

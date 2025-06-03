@@ -55,9 +55,9 @@
                     </div>
                 </x-slot:brand>
                 <x-side-bar.item text="Dashboard" icon="home" :route="route('dashboard')" />
-                <x-side-bar.item text="Users" icon="users" :route="route('users.index')" />
+                <x-side-bar.item text="Prontuário" icon="document-text" :route="route('promptuary.index')" />
                 <x-side-bar.item text="Pacientes" icon="user-group" :route="route('patients.index')" />
-                <x-side-bar.item text="Relato de sessão" icon="document-text" :route="route('dashboard')" />
+                <x-side-bar.item text="Usuários" icon="user" :route="route('users.index')" />
             </x-side-bar>
         </x-slot:menu>
         {{ $slot }}

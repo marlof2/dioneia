@@ -9,6 +9,7 @@ class PatientForm extends Form
 {
     // Dados Pessoais
     public $name = null;
+    public $cpf = null;
     public $birth_date = null;
     public $age = null;
     public $gender = null;
@@ -40,6 +41,7 @@ class PatientForm extends Form
         return [
             // Dados Pessoais
             'name' => 'required',
+            'cpf' => 'required|cpf',
             'birth_date' => 'required|date',
             'age' => 'required|numeric|min:0',
             'gender' => 'required',
@@ -70,6 +72,8 @@ class PatientForm extends Form
     {
         return [
             'name.required' => 'O nome completo é obrigatório',
+            'cpf.required' => 'O CPF é obrigatório',
+            'cpf.cpf' => 'O CPF deve ser válido',
             'birth_date.required' => 'A data de nascimento é obrigatória',
             'birth_date.date' => 'A data de nascimento deve ser uma data válida',
             'age.required' => 'A idade é obrigatória',

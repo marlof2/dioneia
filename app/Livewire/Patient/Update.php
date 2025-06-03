@@ -43,6 +43,8 @@ class Update extends Component
         ['label' => 'Doutorado', 'value' => 'Doutorado'],
     ];
 
+    public $title;
+
     public function render()
     {
         return view('livewire.patient.form');
@@ -50,6 +52,7 @@ class Update extends Component
 
     public function mount($id)
     {
+        $this->title = 'Editar Paciente';
         $this->patient = Patient::find($id);
         $this->form->fill($this->patient->toArray());
         $this->form->family_suicide_history = $this->form->family_suicide_history == 1 ? true : false;

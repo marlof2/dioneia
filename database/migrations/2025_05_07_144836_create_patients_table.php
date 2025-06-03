@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('patients', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('cpf');
             $table->date('birth_date');
             $table->integer('age');
             $table->enum('gender', ['Masculino', 'Feminino', 'Homem Cisgênero', 'Mulher Cisgênero', 'Homem Transgênero', 'Mulher Transgênero', 'Pessoa Não Binária', 'Prefere não informar', 'Outro']);

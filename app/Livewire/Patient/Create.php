@@ -6,6 +6,7 @@ use App\Livewire\Forms\PatientForm;
 use App\Livewire\Traits\Alert;
 use Livewire\Component;
 use App\Models\Patient;
+use Illuminate\Support\Facades\Route;
 use TallStackUi\Traits\Interactions;
 
 class Create extends Component
@@ -13,8 +14,8 @@ class Create extends Component
     use Interactions, Alert;
 
     public PatientForm $form;
-
     public $currentStep = "1";
+
     public $optionsGender = [
         ['label' => 'Masculino', 'value' => 'Masculino'],
         ['label' => 'Homem Cisgênero', 'value' => 'Homem Cisgênero'],
@@ -41,6 +42,13 @@ class Create extends Component
         ['label' => 'Mestrado', 'value' => 'Mestrado'],
         ['label' => 'Doutorado', 'value' => 'Doutorado'],
     ];
+
+    public $title;
+
+    public function mount()
+    {
+        $this->title = 'Novo Paciente';
+    }
 
     public function calculateAge()
     {

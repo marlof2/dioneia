@@ -14,6 +14,7 @@ class PatientFactory extends Factory
 
         return [
             'name' => $this->faker->name(),
+            'cpf' => '03296244581',
             'birth_date' => $this->faker->date('Y-m-d'),
             'age' => $this->faker->numberBetween(18, 80),
             'gender' => $this->faker->randomElement(['Masculino', 'Feminino', 'Homem Cisgênero', 'Mulher Cisgênero', 'Homem Transgênero', 'Mulher Transgênero', 'Pessoa Não Binária', 'Prefere não informar', 'Outro']),
