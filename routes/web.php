@@ -6,6 +6,7 @@ use App\Livewire\Promptuary;
 use App\Livewire\User\Profile;
 use Illuminate\Support\Facades\Route;
 use App\Livewire\Users\Index;
+use App\Livewire\SessionReport;
 
 Route::get('/', [AuthenticatedSessionController::class, 'create'])->name('auth');
 
@@ -24,9 +25,13 @@ Route::middleware(['auth'])->group(function () {
 
     Route::group(['prefix' => 'promptuary'], function () {
         Route::get('/', Promptuary\Index::class)->name('promptuary.index');
-        // Route::get('/create', Promptuary\Create::class)->name('promptuary.create');
-        // Route::get('/edit/{id}', Promptuary\Update::class)->name('promptuary.edit');
     });
+
+    Route::group(['prefix' => 'session-report'], function () {
+        Route::get('/{promptuary_id}', SessionReport\Index::class)->name('session-report.index');
+    });
+
+
 });
 
 require __DIR__ . '/auth.php';

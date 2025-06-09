@@ -17,12 +17,14 @@ class Index extends Component
     use WithPagination, Interactions, Alert;
     public string $title = 'Prontuário';
     public ?int $quantity = 10;
-    public ?string $search = null;
+    public ?string $patientName1 = null;
+    public ?string $patientName2 = null;
+    public ?string $type = null;
     public ?Promptuary $promptuary = null;
 
     public array $headers = [
         ['index' => 'actions', 'label' => 'Ações', 'sortable' => false],
-        // ['index' => 'id', 'label' => 'Prontuário'],
+        ['index' => 'id', 'label' => 'Identificador'],
         ['index' => 'type', 'label' => 'Tipo'],
         ['index' => 'patient1.name', 'label' => 'Paciente 1'],
         ['index' => 'patient2.name', 'label' => 'Paciente 2'],
@@ -34,7 +36,9 @@ class Index extends Component
     public function itensTable(): LengthAwarePaginator
     {
         return Promptuary::with('patient1', 'patient2')
-            ->when($this->search, fn($query) => $query->where('patient1.name', 'like', '%' . $this->search . '%'))
+            ->when($this->patientName1, fn($query) => $query->whereRelation('patient1', 'name', 'like', '%' . $this->patientName1 . '%'))
+            ->when($this->patientName2, fn($query) => $query->whereRelation('patient2', 'name', 'like', '%' . $this->patientName2 . '%'))
+            ->when($this->type, fn($query) => $query->where('type', $this->type))
             ->orderByDesc('created_at')
             ->paginate($this->quantity)
             ->withQueryString();
@@ -65,5 +69,18 @@ class Index extends Component
         $this->promptuary->delete();
         $this->toast()->success('Sucesso', 'Prontuário excluído com sucesso!')->send();
         $this->dispatch('refresh');
+    }
+
+    public function navigateToSessionReport($id)
+    {
+        return $this->redirect('/session-report/' . $id, navigate: true);
+    }
+
+    #[On('setDataFilter')]
+    public function setDataFilter($data)
+    {
+        $this->patientName1 = $data['patientName1'] ?? null;
+        $this->patientName2 = $data['patientName2'] ?? null;
+        $this->type = $data['type'] ?? null;
     }
 }

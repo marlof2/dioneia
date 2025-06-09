@@ -36,7 +36,6 @@ class Create extends Component
     {
         try {
             $this->form->validate();
-
             $data = $this->form->all();
 
             if ($this->isEdit) {
@@ -53,9 +52,9 @@ class Create extends Component
             $this->dispatch('refresh');
             $this->toast()->success('Sucesso', 'Prontuário salvo com sucesso!')->send();
         } catch (\Illuminate\Validation\ValidationException $e) {
-            $this->errors = $e->errors();
+            session()->flash('error', $e->getMessage());
         } catch (\Exception $e) {
-            $this->errors = ['error' => ['Ocorreu um erro ao salvar o prontuário: ' . $e->getMessage()]];
+            session()->flash('error', $e->getMessage());
         }
     }
 
@@ -82,6 +81,12 @@ class Create extends Component
     public function changeType($value)
     {
         $this->form->type = $value;
+    }
+
+    #[On('error-hidden')]
+    public function clearError()
+    {
+        session()->forget('error');
     }
 
     public function render()

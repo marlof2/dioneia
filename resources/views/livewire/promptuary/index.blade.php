@@ -3,7 +3,7 @@
     <x-card>
         <div class="grid grid-cols-12 gap-4 mb-4">
             <div class="col-span-6">
-                <x-input wire:model.live.debounce.300ms="search" placeholder="Buscar por nome..." />
+                <livewire:promptuary.filter @setDataFilter="setDataFilter" />
             </div>
             <div class="col-span-4"></div>
             <div class="col-span-2 ml-auto">
@@ -11,13 +11,17 @@
             </div>
         </div>
 
-        <x-table :$headers :rows="$this->itensTable" paginate striped >
+        <x-table :$headers :rows="$this->itensTable" paginate striped loading>
 
             @interact('column_actions', $row)
                 <div class="relative">
                     <x-dropdown icon="ellipsis-vertical" static position="right">
-                        <x-dropdown.items icon="pencil" text="Editar" wire:click="dispatch('open-modal::promptuary-form', { id: {{ $row->id }} })" />
-                        {{-- <x-dropdown.items icon="clipboard" text="Situação Clínica" wire:click="dispatch('open-modal::clinical-situation', { id: {{ $row->id }} })" /> --}}
+                        <x-dropdown.items icon="pencil" text="Editar Prontuário" wire:click="dispatch('open-modal::promptuary-form', { id: {{ $row->id }} })" />
+                        <x-dropdown.items icon="user" text="Visualizar Paciente 1" separator wire:click="$dispatch('open-modal::patient-view', { id: {{ $row->patient1->id }} })" />
+                        @if($row->patient2)
+                            <x-dropdown.items icon="user" text="Visualizar Paciente 2" separator wire:click="$dispatch('open-modal::patient-view', { id: {{ $row->patient2->id }} })" />
+                        @endif
+                        <x-dropdown.items icon="document-plus" text="Relato de Sessão" separator wire:click="navigateToSessionReport({{ $row->id }})" />
                         <x-dropdown.items icon="trash" text="Excluir" separator wire:click="dispatch('open-modal::promptuary-delete', { promptuary: {{ $row->id }} })" />
                     </x-dropdown>
                 </div>
@@ -30,6 +34,7 @@
             @endinteract
         </x-table>
     </x-card>
-
+    {{-- <x-loading /> --}}
     <livewire:promptuary.create @refresh="$refresh" />
+    <livewire:patient.view-modal />
 </div>

@@ -16,6 +16,7 @@
             @interact('column_actions', $row)
                 <div class="relative">
                     <x-dropdown icon="ellipsis-vertical" static position="right">
+                        <x-dropdown.items icon="eye" text="Visualizar" wire:click="$dispatch('open-modal::patient-view', { id: {{ $row->id }} })" />
                         <x-dropdown.items icon="pencil" text="Editar" wire:click="navigateToEdit({{ $row->id }})" />
                         <x-dropdown.items icon="clipboard" text="Situação Clínica" wire:click="dispatch('open-modal::clinical-situation', { id: {{ $row->id }} })" />
                         <x-dropdown.items icon="trash" text="Excluir" separator wire:click="dispatch('patient-delete', { id: {{ $row->id }} })" />
@@ -39,4 +40,5 @@
     </x-card>
 
     <livewire:patient.clinical-situation-create />
+    <livewire:patient.view-modal />
 </div>
