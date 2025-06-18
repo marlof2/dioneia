@@ -56,7 +56,7 @@ class Update extends Component
         $this->patient = Patient::find($id);
         $this->form->fill($this->patient->toArray());
         $this->form->family_suicide_history = $this->form->family_suicide_history == 1 ? true : false;
-        $this->form->suicidal_thoughts = $this->form->suicidal_thoughts == 1 ? true : false;
+        $this->form->suicidal_ideation = $this->form->suicidal_ideation == 1 ? true : false;
     }
 
     public function calculateAge()

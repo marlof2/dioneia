@@ -17,11 +17,11 @@
                         </x-alert>
                     </div>
                 @endif
-                <x-select.styled label="Tipo *" wire:model="form.type" wire:change="changeType" required :options="$optionsType" />
-                <x-select.styled label="Paciente 1 *" wire:model="form.patient1_id" required :options="$itemsPatient" searchable
-                    select="label:name|value:id" clearable />
+                <x-select.styled label="Tipo *" wire:model="form.type" wire:change="changeType" :options="$optionsType" />
+                <x-select.styled label="Paciente 1 *" wire:model="form.patient1_id" clearable :options="$itemsPatient" searchable
+                    select="label:name|value:id" />
                 @if ($form->type == 'Casal')
-                    <x-select.styled label="Paciente 2" wire:model="form.patient2_id" required :options="$itemsPatient" searchable
+                    <x-select.styled label="Paciente 2" wire:model="form.patient2_id" :options="$itemsPatient" searchable
                         select="label:name|value:id" />
                 @endif
                 <x-button type="submit" :text="__($isEdit ? 'Editar' : 'Adicionar')" class="self-end" />

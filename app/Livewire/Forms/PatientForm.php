@@ -25,23 +25,38 @@ class PatientForm extends Form
     public $emergency_phone_2 = null;
     public $emergency_contact_2 = null;
 
+    // Informações Familiares
+    public $mother_name = null;
+    public $father_name = null;
+    public $legal_guardian = null;
+
     // Informações Adicionais
     public $religion = null;
     public $education_level = null;
     public $occupation = null;
     public $vices = null;
     public $family_suicide_history = false;
-    public $suicidal_thoughts = false;
+    public $suicidal_ideation = null;
     public $disorders = null;
+    public $completion_date = null;
+    public $completion_notes = null;
+    public $family_mental_health_history = null;
+    public $family_significant_events = null;
 
-
+    // Encaminhamentos
+    public $referral_date = null;
+    public $referral_professional = null;
+    public $referral_specialty = null;
+    public $referral_institution = null;
+    public $referral_reason = null;
+    public $referral_return_date = null;
 
     protected  function rules()
     {
         return [
             // Dados Pessoais
             'name' => 'required',
-            'cpf' => 'required|cpf',
+            'cpf' => 'required',
             'birth_date' => 'required|date',
             'age' => 'required|numeric|min:0',
             'gender' => 'required',
@@ -57,14 +72,31 @@ class PatientForm extends Form
             'emergency_phone_2' => 'nullable',
             'emergency_contact_2' => 'nullable',
 
+            // Informações Familiares
+            'mother_name' => 'nullable',
+            'father_name' => 'nullable',
+            'legal_guardian' => 'nullable',
+
             // Informações Adicionais
             'religion' => 'nullable',
             'education_level' => 'required',
             'occupation' => 'required',
             'vices' => 'nullable',
             'family_suicide_history' => 'boolean',
-            'suicidal_thoughts' => 'boolean',
+            'suicidal_ideation' => 'nullable',
             'disorders' => 'nullable',
+            'completion_date' => 'nullable|date',
+            'completion_notes' => 'nullable',
+            'family_mental_health_history' => 'nullable',
+            'family_significant_events' => 'nullable',
+
+            // Encaminhamentos
+            'referral_date' => 'nullable|date',
+            'referral_professional' => 'nullable',
+            'referral_specialty' => 'nullable',
+            'referral_institution' => 'nullable',
+            'referral_reason' => 'nullable',
+            'referral_return_date' => 'nullable|date',
         ];
     }
 
@@ -87,6 +119,11 @@ class PatientForm extends Form
             'phone.required' => 'O telefone principal é obrigatório',
             'education_level.required' => 'O nível de escolaridade é obrigatório',
             'occupation.required' => 'A ocupação é obrigatória',
+            'completion_date.date' => 'A data de finalização deve ser uma data válida',
+
+            // Encaminhamentos
+            'referral_date.date' => 'A data do encaminhamento deve ser uma data válida',
+            'referral_return_date.date' => 'A data de retorno deve ser uma data válida',
         ];
     }
 

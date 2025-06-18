@@ -69,6 +69,6 @@ class Update extends Component
 
         $this->resetExcept('user');
 
-        $this->success();
+        $this->success('Sucesso', 'Usuário atualizado com sucesso');
     }
 }

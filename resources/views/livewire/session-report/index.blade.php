@@ -41,7 +41,7 @@
                 </div>
 
                 <div x-show="$wire.showPatientInfo" x-transition>
-                    <div class="grid grid-cols-1 @if($promptuary->type === 'Casal' && $promptuary->patient2) md:grid-cols-2 @endif gap-4">
+                    <div class="grid grid-cols-1 @if ($promptuary->type === 'Casal' && $promptuary->patient2) md:grid-cols-2 @endif gap-4">
                         <!-- Patient 1 -->
                         <div class="bg-white p-4 rounded-lg shadow">
                             <div class="flex justify-between items-center mb-4">
@@ -61,6 +61,12 @@
                                 <p><span class="font-medium">Estado Civil:</span>
                                     {{ $promptuary->patient1->marital_status }}</p>
                                 <p><span class="font-medium">Filhos:</span> {{ $promptuary->patient1->children }}</p>
+                                <p><span class="font-medium">Nome da Mãe:</span>
+                                    {{ $promptuary->patient1->mother_name }}</p>
+                                <p><span class="font-medium">Nome do Pai:</span>
+                                    {{ $promptuary->patient1->father_name }}</p>
+                                <p><span class="font-medium">Responsável Legal:</span>
+                                    {{ $promptuary->patient1->legal_guardian }}</p>
                                 <p><span class="font-medium">Endereço:</span> {{ $promptuary->patient1->address }}</p>
                                 <p><span class="font-medium">Cidade:</span> {{ $promptuary->patient1->city }}</p>
                                 <p><span class="font-medium">Telefone:</span> {{ $promptuary->patient1->phone }}</p>
@@ -83,10 +89,9 @@
                                     <p><span class="font-medium">Vícios:</span> Não informado</p>
                                 @endif
 
-                                <p><span class="font-medium">Histórico de Suicídio na Família:</span>
-                                    {{ $promptuary->patient1->family_suicide_history ? 'Sim' : 'Não' }}</p>
-                                <p><span class="font-medium">Pensamentos Suicidas:</span>
-                                    {{ $promptuary->patient1->suicidal_thoughts ? 'Sim' : 'Não' }}</p>
+                                <p><span class="font-medium">Tem ou teve ideação suicida:</span>
+                                    {{ $promptuary->patient1->suicidal_ideation }}</p>
+
 
                                 @if ($promptuary->patient1->disorders)
                                     <div>
@@ -101,7 +106,16 @@
                                     <p><span class="font-medium">Transtornos:</span> Não informado</p>
                                 @endif
 
-
+                                <!-- Histórico Familiar -->
+                                <div class="mt-4 pt-4 border-t border-gray-200">
+                                    <h4 class="font-semibold mb-2">Histórico Familiar</h4>
+                                    <p><span class="font-medium">Histórico de Suicídio na Família:</span>
+                                        {{ $promptuary->patient1->family_suicide_history ? 'Sim' : 'Não' }}</p>
+                                    <p><span class="font-medium">Histórico de Saúde Mental na Família:</span>
+                                        {{ $promptuary->patient1->family_mental_health_history }}</p>
+                                    <p><span class="font-medium">Eventos Significativos na Família:</span>
+                                        {{ $promptuary->patient1->family_significant_events }}</p>
+                                </div>
                             </div>
                         </div>
 
@@ -126,6 +140,12 @@
                                         {{ $promptuary->patient2->marital_status }}</p>
                                     <p><span class="font-medium">Filhos:</span> {{ $promptuary->patient2->children }}
                                     </p>
+                                    <p><span class="font-medium">Nome da Mãe:</span>
+                                        {{ $promptuary->patient2->mother_name }}</p>
+                                    <p><span class="font-medium">Nome do Pai:</span>
+                                        {{ $promptuary->patient2->father_name }}</p>
+                                    <p><span class="font-medium">Responsável Legal:</span>
+                                        {{ $promptuary->patient2->legal_guardian }}</p>
                                     <p><span class="font-medium">Endereço:</span> {{ $promptuary->patient2->address }}
                                     </p>
                                     <p><span class="font-medium">Cidade:</span> {{ $promptuary->patient2->city }}</p>
@@ -151,10 +171,8 @@
                                         <p><span class="font-medium">Vícios:</span> Não informado</p>
                                     @endif
 
-                                    <p><span class="font-medium">Histórico de Suicídio na Família:</span>
-                                        {{ $promptuary->patient2->family_suicide_history ? 'Sim' : 'Não' }}</p>
-                                    <p><span class="font-medium">Pensamentos Suicidas:</span>
-                                        {{ $promptuary->patient2->suicidal_thoughts ? 'Sim' : 'Não' }}</p>
+                                    <p><span class="font-medium">Tem ou teve ideação suicida:</span>
+                                        {{ $promptuary->patient2->suicidal_ideation }}</p>
 
                                     @if ($promptuary->patient2->disorders)
                                         <div>
@@ -168,6 +186,17 @@
                                     @else
                                         <p><span class="font-medium">Transtornos:</span> Não informado</p>
                                     @endif
+
+                                    <!-- Histórico Familiar -->
+                                    <div class="mt-4 pt-4 border-t border-gray-200">
+                                        <h4 class="font-semibold mb-2">Histórico Familiar</h4>
+                                        <p><span class="font-medium">Histórico de Suicídio na Família:</span>
+                                            {{ $promptuary->patient2->family_suicide_history ? 'Sim' : 'Não' }}</p>
+                                        <p><span class="font-medium">Histórico de Saúde Mental na Família:</span>
+                                            {{ $promptuary->patient2->family_mental_health_history }}</p>
+                                        <p><span class="font-medium">Eventos Significativos na Família:</span>
+                                            {{ $promptuary->patient2->family_significant_events }}</p>
+                                    </div>
                                 </div>
                             </div>
                         @endif
@@ -177,8 +206,8 @@
 
             <!-- Session Report Form -->
             <form wire:submit="save" class="space-y-4">
-                <x-textarea wire:model="form.text" label="Relato da Sessão" placeholder="Digite o relato da sessão..."
-                    rows="10" required />
+                <x-textarea wire:model="form.text" label="Relato da Sessão"
+                    placeholder="Digite o relato da sessão..." rows="10" required />
 
                 <div class="flex justify-end gap-2">
                     <x-button type="submit" text="Salvar" />

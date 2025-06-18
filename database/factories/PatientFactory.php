@@ -44,7 +44,7 @@ class PatientFactory extends Factory
                 'Jogos de azar'
             ], $this->faker->numberBetween(0, 3)),
             'family_suicide_history' => $this->faker->boolean(20),
-            'suicidal_thoughts' => $this->faker->boolean(15),
+            'suicidal_ideation' => $this->faker->sentence(10),
             'disorders' => $this->faker->optional(0.4)->randomElements([
                 'Depressão',
                 'Ansiedade',
@@ -53,6 +53,13 @@ class PatientFactory extends Factory
                 'Transtorno Obsessivo-Compulsivo',
                 'Transtorno de Estresse Pós-Traumático'
             ], $this->faker->numberBetween(0, 3)),
+            'mother_name' => $this->faker->name('female'),
+            'father_name' => $this->faker->name('male'),
+            'legal_guardian' => $this->faker->optional(0.2)->name(),
+            'completion_date' => $this->faker->optional(0.7)->dateTimeBetween('-1 year', 'now'),
+            'completion_notes' => $this->faker->optional(0.7)->paragraph(),
+            'family_mental_health_history' => $this->faker->optional(0.6)->paragraph(),
+            'family_significant_events' => $this->faker->optional(0.5)->paragraph(),
         ];
     }
 }

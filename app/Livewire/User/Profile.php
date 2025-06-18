@@ -58,6 +58,6 @@ class Profile extends Component
 
         $this->resetExcept('user');
 
-        $this->success();
+        $this->success('Sucesso', 'Perfil atualizado com sucesso');
     }
 }

@@ -1,10 +1,10 @@
 <div>
-    <x-button :text="__('Create New User')" wire:click="$toggle('modal')" />
+    <x-button :text="__('Novo Usuário')" wire:click="$toggle('modal')" />
 
-    <x-modal :title="__('Create New User')" wire x-on:open="setTimeout(() => $refs.name.focus(), 250)">
+    <x-modal :title="__('Novo Usuário')" wire x-on:open="setTimeout(() => $refs.name.focus(), 250)">
         <form id="user-create" wire:submit="save" class="space-y-4">
             <div>
-                <x-input label="{{ __('Name') }} *" x-ref="name" wire:model="user.name" required />
+                <x-input label="{{ __('Nome') }} *" x-ref="name" wire:model="user.name" required />
             </div>
 
             <div>

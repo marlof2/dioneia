@@ -67,6 +67,6 @@ class Create extends Component
         $this->reset();
         $this->user = new User();
 
-        $this->success();
+        $this->success('Sucesso', 'Usuário criado com sucesso');
     }
 }

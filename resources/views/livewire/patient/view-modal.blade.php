@@ -1,9 +1,10 @@
 <div>
-    <x-modal :title="$title" wire size="7xl" persistent>
+    <x-modal :title="$title" wire size="full" persistent>
         <x-card bordered>
-            <x-step wire:model="currentStep" helpers navigate-previous class="mb-10">
+            <x-step wire:model="currentStep" helpers navigate navigate-previous class="mb-10">
+                <hr style="color: gray">
                 <!-- Step 1: Dados Pessoais -->
-                <x-step.items step="1" title="Dados Pessoais" description="Informações básicas do paciente">
+                <x-step.items step="1" title="Dados Pessoais" description="Informações básicas do paciente" clickable>
                     <div class="space-y-6 mt-6">
                         <div class="bg-gray-50 rounded-lg p-6">
                             <h3 class="text-lg font-semibold text-gray-900 mb-4">Informações Pessoais</h3>
@@ -36,13 +37,52 @@
                                     <label class="text-sm font-medium text-gray-500">Número de Filhos</label>
                                     <p class="text-base text-gray-900">{{ $patient->children }}</p>
                                 </div>
+                                <div class="space-y-1">
+                                    <label class="text-sm font-medium text-gray-500">Nome da Mãe</label>
+                                    <p class="text-base text-gray-900">{{ $patient->mother_name }}</p>
+                                </div>
+                                <div class="space-y-1">
+                                    <label class="text-sm font-medium text-gray-500">Nome do Pai</label>
+                                    <p class="text-base text-gray-900">{{ $patient->father_name }}</p>
+                                </div>
+                                <div class="space-y-1">
+                                    <label class="text-sm font-medium text-gray-500">Responsável Legal</label>
+                                    <p class="text-base text-gray-900">{{ $patient->legal_guardian }}</p>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </x-step.items>
 
-                <!-- Step 2: Endereço e Contato -->
-                <x-step.items step="2" title="Endereço e Contato" description="Informações de localização e contato">
+                <!-- Step 2: Histórico Familiar -->
+                <x-step.items step="2" title="Histórico Familiar" description="Informações sobre o histórico familiar do paciente" clickable>
+                    <div class="space-y-6 mt-6">
+                        <div class="bg-gray-50 rounded-lg p-6">
+                            <h3 class="text-lg font-semibold text-gray-900 mb-4">Histórico Familiar</h3>
+                            <div class="grid grid-cols-2 gap-6">
+                                <div class="space-y-1">
+                                    <label class="text-sm font-medium text-gray-500">Histórico de Suicídio na Família</label>
+                                    <p class="text-base text-gray-900">
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium {{ $patient->family_suicide_history ? 'bg-red-100 text-red-800' : 'bg-green-100 text-green-800' }}">
+                                            {{ $patient->family_suicide_history ? 'Sim' : 'Não' }}
+                                        </span>
+                                    </p>
+                                </div>
+                                <div class="space-y-1">
+                                    <label class="text-sm font-medium text-gray-500">Histórico de Saúde Mental na Família</label>
+                                    <p class="text-base text-gray-900">{{ $patient->family_mental_health_history }}</p>
+                                </div>
+                                <div class="space-y-1">
+                                    <label class="text-sm font-medium text-gray-500">Eventos Significativos na Família</label>
+                                    <p class="text-base text-gray-900">{{ $patient->family_significant_events }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </x-step.items>
+
+                <!-- Step 3: Endereço e Contato -->
+                <x-step.items step="3" title="Endereço e Contato" description="Informações de localização e contato" clickable>
                     <div class="space-y-6 mt-6">
                         <div class="bg-gray-50 rounded-lg p-6">
                             <h3 class="text-lg font-semibold text-gray-900 mb-4">Endereço</h3>
@@ -86,8 +126,8 @@
                     </div>
                 </x-step.items>
 
-                <!-- Step 3: Informações Adicionais -->
-                <x-step.items step="3" title="Informações Adicionais" description="Dados complementares e histórico de saúde">
+                <!-- Step 4: Informações Adicionais -->
+                <x-step.items step="4" title="Informações Adicionais" description="Dados complementares e histórico de saúde" clickable>
                     <div class="space-y-6 mt-6">
                         <div class="bg-gray-50 rounded-lg p-6">
                             <h3 class="text-lg font-semibold text-gray-900 mb-4">Informações Profissionais e Acadêmicas</h3>
@@ -116,23 +156,58 @@
                                 </div>
                                 <div class="space-y-1">
                                     <label class="text-sm font-medium text-gray-500">Transtornos</label>
-                                    <p class="text-base text-gray-900">{{ is_array($patient->disorders) ? implode(', ', $patient->disorders) : $patient->disorders }}</p>
+                                    @if (is_array($patient->disorders))
+                                        <p class="text-base text-gray-900">{{ implode(', ', $patient->disorders) }}</p>
+                                    @else
+                                        <p class="text-base text-gray-900">Não informado</p>
+                                    @endif
                                 </div>
                                 <div class="space-y-1">
-                                    <label class="text-sm font-medium text-gray-500">Histórico de Suicídio na Família</label>
-                                    <p class="text-base text-gray-900">
-                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium {{ $patient->family_suicide_history ? 'bg-red-100 text-red-800' : 'bg-green-100 text-green-800' }}">
-                                            {{ $patient->family_suicide_history ? 'Sim' : 'Não' }}
-                                        </span>
-                                    </p>
+                                    <label class="text-sm font-medium text-gray-500">Tem ou teve ideação suicida</label>
+                                    <p class="text-base text-gray-900">{{ $patient->suicidal_ideation }}</p>
                                 </div>
                                 <div class="space-y-1">
-                                    <label class="text-sm font-medium text-gray-500">Pensamentos Suicidas</label>
-                                    <p class="text-base text-gray-900">
-                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium {{ $patient->suicidal_thoughts ? 'bg-red-100 text-red-800' : 'bg-green-100 text-green-800' }}">
-                                            {{ $patient->suicidal_thoughts ? 'Sim' : 'Não' }}
-                                        </span>
-                                    </p>
+                                    <label class="text-sm font-medium text-gray-500">Data da Finalização</label>
+                                    <p class="text-base text-gray-900">{{ $patient->completion_date ? \Carbon\Carbon::parse($patient->completion_date)->format('d/m/Y') : '' }}</p>
+                                </div>
+                                <div class="space-y-1">
+                                    <label class="text-sm font-medium text-gray-500">Observação da Finalização</label>
+                                    <p class="text-base text-gray-900">{{ $patient->completion_notes }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </x-step.items>
+
+                <!-- Step 5: Encaminhamentos -->
+                <x-step.items step="5" title="Encaminhamentos" description="Informações sobre encaminhamentos do paciente" clickable>
+                    <div class="space-y-6 mt-6">
+                        <div class="bg-gray-50 rounded-lg p-6">
+                            <h3 class="text-lg font-semibold text-gray-900 mb-4">Detalhes do Encaminhamento</h3>
+                            <div class="grid grid-cols-2 gap-6">
+                                <div class="space-y-1">
+                                    <label class="text-sm font-medium text-gray-500">Data do Encaminhamento</label>
+                                    <p class="text-base text-gray-900">{{ $patient->referral_date ? \Carbon\Carbon::parse($patient->referral_date)->format('d/m/Y') : '' }}</p>
+                                </div>
+                                <div class="space-y-1">
+                                    <label class="text-sm font-medium text-gray-500">Data de Retorno</label>
+                                    <p class="text-base text-gray-900">{{ $patient->referral_return_date ? \Carbon\Carbon::parse($patient->referral_return_date)->format('d/m/Y') : '' }}</p>
+                                </div>
+                                <div class="space-y-1">
+                                    <label class="text-sm font-medium text-gray-500">Profissional</label>
+                                    <p class="text-base text-gray-900">{{ $patient->referral_professional }}</p>
+                                </div>
+                                <div class="space-y-1">
+                                    <label class="text-sm font-medium text-gray-500">Especialidade</label>
+                                    <p class="text-base text-gray-900">{{ $patient->referral_specialty }}</p>
+                                </div>
+                                <div class="space-y-1">
+                                    <label class="text-sm font-medium text-gray-500">Instituição</label>
+                                    <p class="text-base text-gray-900">{{ $patient->referral_institution }}</p>
+                                </div>
+                                <div class="space-y-1">
+                                    <label class="text-sm font-medium text-gray-500">Motivo do Encaminhamento</label>
+                                    <p class="text-base text-gray-900">{{ $patient->referral_reason }}</p>
                                 </div>
                             </div>
                         </div>

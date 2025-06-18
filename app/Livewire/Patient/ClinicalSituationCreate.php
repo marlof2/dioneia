@@ -25,6 +25,7 @@ class ClinicalSituationCreate extends Component
         ['index' => 'actions', 'label' => 'Ações',  'sortable' => false],
         ['index' => 'doctor', 'label' => 'Médico',  'sortable' => false],
         ['index' => 'medication', 'label' => 'Medicamentação',  'sortable' => false],
+        ['index' => 'reason', 'label' => 'Motivo',  'sortable' => false],
     ];
 
     public function mount()
@@ -49,7 +50,6 @@ class ClinicalSituationCreate extends Component
     {
         try {
             $this->form->validate();
-
             if ($this->isEdit) {
                 $clinicalSituation = ClinicalSituation::findOrFail($this->form->id);
                 $clinicalSituation->update($this->form->except('patient_id', 'id'));
@@ -59,7 +59,7 @@ class ClinicalSituationCreate extends Component
             }
 
             $this->rows = ClinicalSituation::where('patient_id', $this->form->patient_id)->get();
-            $this->form->reset(['doctor', 'medication']);
+            $this->form->reset(['doctor', 'medication', 'reason']);
             $this->successMessage = true;
             $this->toast()->success('Sucesso', 'Situação clínica salva com sucesso!')->send();
         } catch (\Illuminate\Validation\ValidationException $e) {

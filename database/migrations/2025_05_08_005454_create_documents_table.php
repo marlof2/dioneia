@@ -16,7 +16,8 @@ return new class extends Migration
             $table->foreignId('patient_id')->constrained()->onDelete('cascade');
             $table->string('path');
             $table->string('name');
-            $table->string('type');
+            $table->string('mime_type');
+            $table->bigInteger('size');
             $table->timestamps();
         });
     }

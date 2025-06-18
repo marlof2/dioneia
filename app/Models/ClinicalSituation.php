@@ -10,6 +10,7 @@ class ClinicalSituation extends Model
         'patient_id',
         'doctor',
         'medication',
+        'reason',
     ];
 
     protected $table = 'clinical_situations';

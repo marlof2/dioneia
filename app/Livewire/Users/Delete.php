@@ -25,7 +25,7 @@ class Delete extends Component
     #[Renderless]
     public function confirm(): void
     {
-        $this->question()
+        $this->question('Atenção', 'Tem certeza que deseja excluir este usuário?')
             ->confirm(method: 'delete')
             ->cancel()
             ->send();
@@ -37,6 +37,6 @@ class Delete extends Component
 
         $this->dispatch('deleted');
 
-        $this->success();
+        $this->success('Sucesso', 'Usuário excluído com sucesso');
     }
 }

@@ -23,6 +23,7 @@ class PromptuaryForm extends Form
                 function ($attribute, $value, $fail) {
                     if ($this->type === 'Individual') {
                         $exists = Promptuary::where('patient1_id', $value)
+                            ->where('type', 'Individual')
                             ->exists();
 
                         $patient = Patient::find($value);
@@ -38,6 +39,7 @@ class PromptuaryForm extends Form
                     if ($this->type === 'Casal') {
                         $exists = Promptuary::orWhere('patient2_id', $value)
                             ->orWhere('patient1_id', $value)
+                            ->where('type', 'Casal')
                             ->exists();
 
                         $patient1 = Patient::find($this->patient1_id);

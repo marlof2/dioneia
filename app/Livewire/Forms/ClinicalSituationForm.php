@@ -11,6 +11,8 @@ class ClinicalSituationForm extends Form
     public $patient_id;
     public $doctor;
     public $medication;
+    public $reason;
+
 
     public function rules()
     {
@@ -18,6 +20,7 @@ class ClinicalSituationForm extends Form
             'patient_id' => 'required',
             'doctor' => 'required',
             'medication' => 'required',
+            'reason' => 'nullable',
         ];
     }
 

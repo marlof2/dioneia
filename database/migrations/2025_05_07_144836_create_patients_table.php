@@ -15,6 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('cpf');
+            $table->string('mother_name')->nullable();
+            $table->string('father_name')->nullable();
+            $table->string('legal_guardian')->nullable();
             $table->date('birth_date');
             $table->integer('age');
             $table->enum('gender', ['Masculino', 'Feminino', 'Homem Cisgênero', 'Mulher Cisgênero', 'Homem Transgênero', 'Mulher Transgênero', 'Pessoa Não Binária', 'Prefere não informar', 'Outro']);
@@ -32,8 +35,12 @@ return new class extends Migration
             $table->string('occupation');
             $table->json('vices')->nullable(); //vicios
             $table->boolean('family_suicide_history')->default(false); //histórico de suicídio na família
-            $table->boolean('suicidal_thoughts')->default(false); //pensamentos suicidas
+            $table->boolean('suicidal_ideation')->default(false); //pensamentos suicidas
             $table->json('disorders')->nullable(); //disorder
+            $table->date('completion_date')->nullable();
+            $table->text('completion_notes')->nullable();
+            $table->text('family_mental_health_history')->nullable();
+            $table->text('family_significant_events')->nullable();
             $table->timestamps();
         });
     }
