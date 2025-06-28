@@ -3,6 +3,7 @@
 namespace App\Livewire\Patient;
 
 use App\Livewire\Traits\Alert;
+use App\Livewire\Traits\WhatsAppTrait;
 use App\Models\Patient;
 use Livewire\Attributes\On;
 use Livewire\Component;
@@ -10,7 +11,7 @@ use TallStackUi\Traits\Interactions;
 
 class ViewModal extends Component
 {
-    use Interactions, Alert;
+    use Interactions, Alert, WhatsAppTrait;
 
     public Patient $patient;
     public $modal = false;

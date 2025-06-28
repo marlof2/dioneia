@@ -103,11 +103,21 @@
                             <div class="grid grid-cols-2 gap-6">
                                 <div class="space-y-1">
                                     <label class="text-sm font-medium text-gray-500">Telefone Principal</label>
-                                    <p class="text-base text-gray-900">{{ $patient->phone }}</p>
+                                    <div class="flex items-center gap-2">
+                                        <p class="text-base text-gray-900">{{ $patient->phone }}</p>
+                                        @if($patient->phone)
+                                            <x-button size="xs" icon="chat-bubble-left" color="green" wire:click="openWhatsApp('{{ $patient->phone }}')" />
+                                        @endif
+                                    </div>
                                 </div>
                                 <div class="space-y-1">
                                     <label class="text-sm font-medium text-gray-500">Telefone de Emergência 1</label>
-                                    <p class="text-base text-gray-900">{{ $patient->emergency_phone_1 }}</p>
+                                    <div class="flex items-center gap-2">
+                                        <p class="text-base text-gray-900">{{ $patient->emergency_phone_1 }}</p>
+                                        @if($patient->emergency_phone_1)
+                                            <x-button size="xs" icon="chat-bubble-left" color="green" wire:click="openWhatsApp('{{ $patient->emergency_phone_1 }}')" />
+                                        @endif
+                                    </div>
                                 </div>
                                 <div class="space-y-1">
                                     <label class="text-sm font-medium text-gray-500">Nome do Contato de Emergência 1</label>
@@ -115,7 +125,12 @@
                                 </div>
                                 <div class="space-y-1">
                                     <label class="text-sm font-medium text-gray-500">Telefone de Emergência 2</label>
-                                    <p class="text-base text-gray-900">{{ $patient->emergency_phone_2 }}</p>
+                                    <div class="flex items-center gap-2">
+                                        <p class="text-base text-gray-900">{{ $patient->emergency_phone_2 }}</p>
+                                        @if($patient->emergency_phone_2)
+                                            <x-button size="xs" icon="chat-bubble-left" color="green" wire:click="openWhatsApp('{{ $patient->emergency_phone_2 }}')" />
+                                        @endif
+                                    </div>
                                 </div>
                                 <div class="space-y-1">
                                     <label class="text-sm font-medium text-gray-500">Nome do Contato de Emergência 2</label>

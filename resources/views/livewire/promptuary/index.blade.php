@@ -16,13 +16,13 @@
             @interact('column_actions', $row)
                 <div class="relative">
                     <x-dropdown icon="ellipsis-vertical" static position="right">
-                        <x-dropdown.items icon="pencil" text="Editar Prontuário" wire:click="dispatch('open-modal::promptuary-form', { id: {{ $row->id }} })" />
-                        <x-dropdown.items icon="user" text="Visualizar Paciente 1" separator wire:click="$dispatch('open-modal::patient-view', { id: {{ $row->patient1->id }} })" />
+                        <x-dropdown.items icon="pencil" text="Editar Prontuário" wire:click="dispatch('open-modal::promptuary-form', { id: {{ $row->id }} })" class="hover:text-yellow-700" />
+                        <x-dropdown.items icon="user" text="Visualizar Paciente 1" separator wire:click="$dispatch('open-modal::patient-view', { id: {{ $row->patient1->id }} })" class="hover:text-blue-700" />
                         @if($row->patient2)
-                            <x-dropdown.items icon="user" text="Visualizar Paciente 2" separator wire:click="$dispatch('open-modal::patient-view', { id: {{ $row->patient2->id }} })" />
+                            <x-dropdown.items icon="user" text="Visualizar Paciente 2" separator wire:click="$dispatch('open-modal::patient-view', { id: {{ $row->patient2->id }} })" class="hover:text-blue-700" />
                         @endif
-                        <x-dropdown.items icon="document-plus" text="Relato de Sessão" separator wire:click="navigateToSessionReport({{ $row->id }})" />
-                        <x-dropdown.items icon="trash" text="Excluir" separator wire:click="dispatch('open-modal::promptuary-delete', { promptuary: {{ $row->id }} })" />
+                        <x-dropdown.items icon="document-plus" text="Relato de Sessão" separator wire:click="navigateToSessionReport({{ $row->id }})" class="hover:text-green-700" />
+                        <x-dropdown.items icon="trash" text="Excluir" separator wire:click="dispatch('open-modal::promptuary-delete', { promptuary: {{ $row->id }} })" class="hover:text-red-700" />
                     </x-dropdown>
                 </div>
             @endinteract

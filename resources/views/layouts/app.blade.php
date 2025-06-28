@@ -64,6 +64,15 @@
         {{ $slot }}
     </x-layout>
     @livewireScripts
+
+    <script>
+        // Listener para abrir WhatsApp em nova aba
+        document.addEventListener('livewire:init', () => {
+            Livewire.on('open-whatsapp', (event) => {
+                window.open(event.url, '_blank');
+            });
+        });
+    </script>
 </body>
 
 </html>

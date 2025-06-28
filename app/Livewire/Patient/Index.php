@@ -3,6 +3,7 @@
 namespace App\Livewire\Patient;
 
 use App\Livewire\Traits\Alert;
+use App\Livewire\Traits\WhatsAppTrait;
 use App\Models\Patient;
 use Carbon\Carbon;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -14,7 +15,7 @@ use TallStackUi\Traits\Interactions;
 
 class Index extends Component
 {
-    use WithPagination, Interactions, Alert;
+    use WithPagination, Interactions, Alert, WhatsAppTrait;
 
     public ?int $quantity = 10;
     public ?string $search = null;
