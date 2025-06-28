@@ -58,6 +58,7 @@
                 <x-side-bar.item text="Prontuário" icon="document-text" :route="route('promptuary.index')" />
                 <x-side-bar.item text="Pacientes" icon="user-group" :route="route('patients.index')" />
                 <x-side-bar.item text="Usuários" icon="user" :route="route('users.index')" />
+                <x-side-bar.item text="Backups" icon="arrow-down-tray" :route="route('backups.index')" />
             </x-side-bar>
         </x-slot:menu>
         {{ $slot }}

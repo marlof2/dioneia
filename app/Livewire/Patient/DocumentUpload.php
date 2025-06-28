@@ -34,6 +34,16 @@ class DocumentUpload extends Component
         'name' => 'required|string|max:255',
     ];
 
+    protected $messages = [
+        'uploadedFile.required' => 'Por favor, selecione um arquivo.',
+        'uploadedFile.file' => 'O arquivo selecionado é inválido.',
+        'uploadedFile.mimes' => 'O arquivo enviado deve ser do tipo: Word (.doc, .docx), Excel (.xls, .xlsx), PDF (.pdf) ou imagem (.jpg, .jpeg, .png).',
+        'uploadedFile.max' => 'O arquivo não pode ter mais que 10MB.',
+        'name.required' => 'O nome do documento é obrigatório.',
+        'name.string' => 'O nome deve ser um texto.',
+        'name.max' => 'O nome não pode ter mais que 255 caracteres.',
+    ];
+
     public function mount(Patient $patient)
     {
         $this->patient = $patient;

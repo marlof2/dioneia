@@ -103,9 +103,7 @@ return [
 
     // Mensagens personalizadas para atributos específicos
     'custom' => [
-        'uploadedFile' => [
-            'mimes' => 'O arquivo enviado deve ser do tipo: Word (.doc, .docx), Excel (.xls, .xlsx), PDF (.pdf) ou imagem (.jpg, .jpeg, .png).',
-        ],
+        // Removido para permitir validações específicas em cada componente
     ],
 
     // Atributos personalizados

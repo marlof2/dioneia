@@ -21,7 +21,7 @@ class Index extends Component
     public $promptuary_id;
     public $quantity = 10;
     public $search = null;
-    public $showPatientInfo = true;
+    public $showPatientInfo = false;
     public Promptuary $promptuary;
     public SessionReportForm $form;
     public $isEdit = false;
@@ -29,6 +29,7 @@ class Index extends Component
     public SessionReport $sessionReport;
     public array $headers = [
         ['index' => 'actions', 'label' => 'Ações', 'sortable' => false],
+        ['index' => 'promptuary.id', 'label' => 'Identificador'],
         ['index' => 'promptuary.patient1.name', 'label' => 'Paciente'],
         ['index' => 'created_at', 'label' => 'Data de Criação'],
     ];
@@ -39,10 +40,11 @@ class Index extends Component
         $this->promptuary_id = $promptuary_id;
         $this->promptuary = Promptuary::with(['patient1', 'patient2'])->findOrFail($promptuary_id);
         if ($this->promptuary->type == 'Casal') {
-            unset($this->headers[2]);
-            $this->headers[1] = ['index' => 'promptuary.patient1.name', 'label' => 'Paciente 1'];
-            $this->headers[2] = ['index' => 'promptuary.patient2.name', 'label' => 'Paciente 2'];
-            $this->headers[3] =  ['index' => 'created_at', 'label' => 'Data de Criação'];
+            unset($this->headers[3]);
+            $this->headers[1] = ['index' => 'promptuary.id', 'label' => 'Identificador'];
+            $this->headers[2] =  ['index' => 'created_at', 'label' => 'Data'];
+            $this->headers[3] = ['index' => 'promptuary.patient1.name', 'label' => 'Paciente 1'];
+            $this->headers[4] = ['index' => 'promptuary.patient2.name', 'label' => 'Paciente 2'];
         }
     }
 
@@ -63,7 +65,7 @@ class Index extends Component
 
     public function dateFormatted($date)
     {
-        return Carbon::parse($date)->format('d/m/Y H:i');
+        return Carbon::parse($date)->format('d/m/Y');
     }
 
     public function togglePatientInfo()
@@ -88,6 +90,7 @@ class Index extends Component
 
     public function closeModal()
     {
+        $this->showPatientInfo = false;
         $this->modal = false;
         $this->form->reset();
     }

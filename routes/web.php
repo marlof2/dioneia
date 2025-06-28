@@ -17,6 +17,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/user/profile', Profile::class)->name('user.profile');
 
+
     Route::group(['prefix' => 'patients'], function () {
         Route::get('/', Patient\Index::class)->name('patients.index');
         Route::get('/create', Patient\Create::class)->name('patients.create');
@@ -31,6 +32,16 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/{promptuary_id}', SessionReport\Index::class)->name('session-report.index');
     });
 
+    Route::get('/backups', \App\Livewire\Backup\BackupManager::class)->name('backups.index');
+    Route::get('/backup/download/{filename}', function ($filename) {
+        $backupPath = storage_path('backups/' . $filename);
+
+        if (!file_exists($backupPath)) {
+            abort(404);
+        }
+
+        return response()->download($backupPath, $filename);
+    })->name('backup.download');
 
 });
 

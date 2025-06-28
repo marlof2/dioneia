@@ -46,12 +46,6 @@ class Patient extends Model
         'referral_return_date',
     ];
 
-    protected $casts = [
-        'vices' => 'array',
-        'disorders' => 'array',
-    ];
-
-
     public function documents()
     {
         return $this->hasMany(Document::class);

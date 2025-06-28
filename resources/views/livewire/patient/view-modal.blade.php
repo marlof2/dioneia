@@ -152,15 +152,11 @@
                             <div class="grid grid-cols-2 gap-6">
                                 <div class="space-y-1">
                                     <label class="text-sm font-medium text-gray-500">Vícios</label>
-                                    <p class="text-base text-gray-900">{{ is_array($patient->vices) ? implode(', ', $patient->vices) : $patient->vices }}</p>
+                                    <p class="text-base text-gray-900">{{ $patient->vices ?? 'Não informado' }}</p>
                                 </div>
                                 <div class="space-y-1">
                                     <label class="text-sm font-medium text-gray-500">Transtornos</label>
-                                    @if (is_array($patient->disorders))
-                                        <p class="text-base text-gray-900">{{ implode(', ', $patient->disorders) }}</p>
-                                    @else
-                                        <p class="text-base text-gray-900">Não informado</p>
-                                    @endif
+                                    <p class="text-base text-gray-900">{{ $patient->disorders ?? 'Não informado' }}</p>
                                 </div>
                                 <div class="space-y-1">
                                     <label class="text-sm font-medium text-gray-500">Tem ou teve ideação suicida</label>
