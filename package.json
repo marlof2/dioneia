@@ -3,7 +3,11 @@
     "type": "module",
     "scripts": {
         "build": "vite build",
-        "dev": "vite"
+        "dev": "vite",
+        "serve": "php artisan serve",
+        "start": "concurrently \"npm run serve\" \"npm run dev\"",
+        "laravel": "php artisan serve",
+        "vite": "vite"
     },
     "dependencies": {
         "@tailwindcss/forms": "^0.5.10",
