@@ -12,10 +12,10 @@
         @csrf
 
         <div class="space-y-4">
-            <x-input label="Email *" type="email" name="email" :value="old('email', 'marlosilva.f2@gmail.com')" required autofocus
+            <x-input label="Email *" type="email" name="email" :value="old('email', 'dioneia@gmail.com')" required autofocus
                 autocomplete="username" />
 
-            <x-password label="Password *" type="password" name="password" :value="old('password', '123')" required
+            <x-password label="Password *" type="password" name="password" :value="old('password', '123456')" required
                 autocomplete="current-password" />
         </div>
 
